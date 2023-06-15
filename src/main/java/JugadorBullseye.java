@@ -15,7 +15,8 @@ public class JugadorBullseye {
     }
 
     public int elejirCaballo(Caballo caballo1, Caballo caballo2, Caballo caballo3, Caballo caballo4, Caballo caballo5, Caballo caballo6) {
-        int caballoelejido = sc.nextInt();
+        System.out.println("Elija 1 caballo digitando solo su numero de identificador: ");
+        int caballoelejido = Utilitario.leerEntero();
         return caballoelejido;
     }
 
@@ -41,7 +42,7 @@ public class JugadorBullseye {
             System.out.println("(6) $50000: Si gana, se aplica un multiplicador x10.");
             System.out.println("En caso de pérdida, el usuario pierde todo el monto apostado.");
 
-            dineroApostado = sc.nextInt();
+            dineroApostado = Utilitario.leerEntero();
             if (dineroApostado >= 1 && dineroApostado <= 6) {
                 finalizarApuesta = true;
             } else {

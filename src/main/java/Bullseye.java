@@ -11,6 +11,8 @@ public class Bullseye {
     private static void iniciarJuego() {
         List<Integer> listaCaballos = new ArrayList<>();
         List<Integer> listaJugadoresSC = new ArrayList<>();
+        Random random = new Random();
+
         Caballo caballo1 = new Caballo("Pedro", 1, "rojo");
         Caballo caballo2 = new Caballo("Juan", 2, "azul");
         Caballo caballo3 = new Caballo("Diego", 3, "amarillo");
@@ -39,6 +41,7 @@ public class Bullseye {
         listaJugadoresSC.add(jugador6.getIdentificador());
 
         jugador1.montoInicial();
+
         int caballoElegido = 0;
         do {
             caballosQueHay(caballo1, caballo2, caballo3, caballo4, caballo5, caballo6);
@@ -50,7 +53,6 @@ public class Bullseye {
 
         System.out.println("¡Comienza la carrera!");
 
-        Random random = new Random();
         int[] tiempos = new int[6];
 
         for (int i = 0; i < tiempos.length; i++) {
