@@ -1,77 +1,85 @@
 import java.util.Scanner;
 
 public class Blackjack {
+	private static Scanner sc = new Scanner(System.in);
+	private static JugadorBlackjack jugador1 = new JugadorBlackjack();
+	private static JugadorBlackjack jugador2 = new JugadorBlackjack();
 
 	public static void main() {
 		iniciarJuego();
+		ganador(verificarSumaCartas(jugador1), verificarSumaCartas(jugador2));
+
 	}
-	static Scanner sc = new Scanner(System.in);
-	static JugadorBlackjack jugador1 = new JugadorBlackjack();
-	static JugadorBlackjack jugador2 = new JugadorBlackjack();
+
 	private static void iniciarJuego() {
-	jugador1.iniciarJuegoBlackjack();
-	jugador2.iniciarJuegoBlackjack();
-		System.out.println("le toca al jugador 1");
-	seguirJuego(jugador1);
-		System.out.println("le toca al jugador 2");
-	seguirJuego(jugador2);
-	int valorjugador1=verificarSumaCartas(jugador1);
-	int valorJugador2=verificarSumaCartas(jugador2);
-	ganador(valorjugador1, valorJugador2);
+		System.out.println("¡Comienza el juego Blackjack!");
+		jugador1.iniciarJuegoBlackjack();
+		jugador2.iniciarJuegoBlackjack();
+		System.out.println("Le toca al jugador 1");
+		seguirJuego(jugador1);
+		System.out.println("Le toca al jugador 2");
+		seguirJuego(jugador2);
 	}
 
 	private static void seguirJuego(JugadorBlackjack jugador) {
 		int terminar = 1;
-		do{
+		do {
 			jugador.mostrarCarta();
 			int sacarMasCartas = 0;
-			System.out.println("desea sacar mas cartas o desea terminar? (1 para sacar mas, 0 para terminar)");
+			System.out.println("¿Desea sacar más cartas o desea terminar? (1 para sacar más, 0 para terminar)");
 			sacarMasCartas = sc.nextInt();
 			if (sacarMasCartas == 1) {
 				jugador.agregarCarta();
 			}
 			terminar = sacarMasCartas;
-		}while (terminar == 1);
+		} while (terminar == 1);
 	}
 
-	private static int verificarSumaCartas(JugadorBlackjack jugador1) {
+	private static int verificarSumaCartas(JugadorBlackjack jugador) {
 		int sumaFinal = 0;
 		int primeraPalabra = 0;
-			for (String carta : jugador1.cartas) {
-				if (carta.split(" ")[0].equals("Kaiser")||carta.split(" ")[0].equals("Quina")||carta.split(" ")[0].equals("Jota")) {
-					primeraPalabra = 11;
-					sumaFinal = sumaFinal+ primeraPalabra;
-				}else if (carta.split(" ")[0].equals("As")){
-					primeraPalabra = 10;
-					sumaFinal = sumaFinal+ primeraPalabra;
-				}else {
-					primeraPalabra = Integer.parseInt(carta.split(" ")[0]);
-					sumaFinal = sumaFinal+ primeraPalabra;
-				}
-				}
-			return sumaFinal;
+		for (String carta : jugador.cartas) {
+			if (carta.split(" ")[0].equals("Kaiser") || carta.split(" ")[0].equals("Quina")
+					|| carta.split(" ")[0].equals("Jota")) {
+				primeraPalabra = 11;
+				sumaFinal = sumaFinal + primeraPalabra;
+			} else if (carta.split(" ")[0].equals("As")) {
+				primeraPalabra = 10;
+				sumaFinal = sumaFinal + primeraPalabra;
+			} else {
+				primeraPalabra = Integer.parseInt(carta.split(" ")[0]);
+				sumaFinal = sumaFinal + primeraPalabra;
+			}
+		}
+		return sumaFinal;
 	}
 
-	// el metodo de abajo es mucho texto porque son solo los imprime en pantalla
-	private static void ganador(int jugador1, int jugador2) {
-		if (jugador1 >21) {
-			System.out.println("el jugador 1 ha perdido con: " + jugador1 + " puntos");
+	private static void ganador(int valorJugador1, int valorJugador2) {
+		VentanaGanadorBlackjack ventanaGanadorBlackjack = new VentanaGanadorBlackjack();
+		if (valorJugador1 > 21) {
+			System.out.println("El jugador 1 ha perdido con: " + valorJugador1 + " puntos");
+			ventanaGanadorBlackjack.setGanador("El jugador 1 ha perdido con: " + valorJugador1 + " puntos");
 		}
-		if (jugador2 >21) {
-			System.out.println("el jugador 2 ha perdido con: "+ jugador2 + " puntos");
+		if (valorJugador2 > 21) {
+			System.out.println("El jugador 2 ha perdido con: " + valorJugador2 + " puntos");
+			ventanaGanadorBlackjack.setGanador("El jugador 2 ha perdido con: " + valorJugador2 + " puntos");
 		}
-		if (jugador1 == jugador2 ) {
-			System.out.println("ambos jugadores tuvieron "+jugador1+" puntos y tuvieron un empate");
-		}else if (jugador1 == 21) {
-			System.out.println("el jugador 1 ha ganado con: "+ jugador1 + " puntos");
-		}else if (jugador2 == 21) {
-			System.out.println("el jugador 2 ha ganado con: " + jugador2 + " puntos");
-		}else if (jugador1 > jugador2&&jugador1 <=21) {
-			System.out.println("jugador 1 ha ganado con: "+ jugador1 + " puntos y jugador 2 quedo con " +jugador2 + " puntos");
-		}else if (jugador2 > jugador1&&jugador2 <=21) {
-			System.out.println("jugador 2 ha ganado con: "+ jugador2 + " puntos y jugador 1 quedo con " +jugador1 + " puntos");
+		if (valorJugador1 == valorJugador2) {
+			System.out.println("Ambos jugadores tuvieron " + valorJugador1 + " puntos y tuvieron un empate");
+			ventanaGanadorBlackjack.setGanador("Ambos jugadores tuvieron " + valorJugador1 + " puntos y tuvieron un empate");
+		} else if (valorJugador1 == 21) {
+			System.out.println("El jugador 1 ha ganado con: " + valorJugador1 + " puntos");
+			ventanaGanadorBlackjack.setGanador("El jugador 1 ha ganado con: " + valorJugador1 + " puntos");
+		} else if (valorJugador2 == 21) {
+			System.out.println("El jugador 2 ha ganado con: " + valorJugador2 + " puntos");
+			ventanaGanadorBlackjack.setGanador("El jugador 2 ha ganado con: " + valorJugador2 + " puntos");
+		} else if (valorJugador1 > valorJugador2 && valorJugador1 <= 21) {
+			System.out.println("Jugador 1 ha ganado con: " + valorJugador1 + " puntos y Jugador 2 quedó con " + valorJugador2 + " puntos");
+			ventanaGanadorBlackjack.setGanador("Jugador 1 ha ganado con: " + valorJugador1 + " puntos y Jugador 2 quedó con " + valorJugador2 + " puntos");
+		} else if (valorJugador2 > valorJugador1 && valorJugador2 <= 21) {
+			System.out.println("Jugador 2 ha ganado con: " + valorJugador2 + " puntos y Jugador 1 quedó con " + valorJugador1 + " puntos");
+			ventanaGanadorBlackjack.setGanador("Jugador 2 ha ganado con: " + valorJugador2 + " puntos y Jugador 1 quedó con " + valorJugador1 + " puntos");
 		}
+		ventanaGanadorBlackjack.setVisible(true);
 	}
-
-
 }

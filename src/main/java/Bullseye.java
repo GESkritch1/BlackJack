@@ -9,6 +9,7 @@ public class Bullseye {
     }
 
     private static void iniciarJuego() {
+        System.out.println("¡Comienza el juego Bullseye!");
         List<Integer> listaCaballos = new ArrayList<>();
         List<Integer> listaJugadoresSC = new ArrayList<>();
         Random random = new Random();
@@ -60,6 +61,7 @@ public class Bullseye {
         }
 
         int ganador = obtenerGanador(tiempos);
+        VentanaGanadorBullseye ventanaGanador = new VentanaGanadorBullseye();
 
         System.out.println("El caballo ganador es: " + ganador);
 
@@ -67,9 +69,12 @@ public class Bullseye {
         if (caballoElegido == ganador) {
             System.out.println("¡Felicidades! Has ganado la apuesta.");
             jugador1.premio(apuestaAlCaballoElegido);
+            ventanaGanador.setGanador("¡Felicidades! Has ganado la apuesta");
         } else {
             System.out.println("Lo siento, no has ganado la apuesta.");
+            ventanaGanador.setGanador("Lo siento, no has ganado la apuesta.");
         }
+        ventanaGanador.setVisible(true);
     }
 
     private static int obtenerGanador(int[] tiempos) {

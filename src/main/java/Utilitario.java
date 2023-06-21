@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Utilitario {
-    public static int leerEntero() {          //usar:  int numero = Utilitarios.leerEntero()
+    public static int leerEntero() {
         Scanner scanner = new Scanner(System.in);
 
         try {
